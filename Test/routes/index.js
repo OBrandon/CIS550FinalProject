@@ -5,10 +5,11 @@ var path = require('path');
 // Connect string to MySQL
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'fling.seas.upenn.edu',
-  user     : '',
-  password : '',
-  database : ''
+  host     : 'cis550jsw.cu9cp39fmb3y.us-east-2.rds.amazonaws.com',
+  user     : 'jswangnyc',
+  password : '550Pals2018!',
+  database : 'yelp550',
+  port : 3306
 });
 
 /* GET home page. */
@@ -42,6 +43,19 @@ router.get('/family', function(req, res, next) {
 
 router.get('/data', function(req, res, next) {
   var query = 'SELECT * from Person;';
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+        res.json(rows);
+    }  
+    });
+});
+
+router.get('/knowYourPlace/:zipcode', function(req, res, next) {
+  console.log(req.params.zipcode)
+  console.log(req.params)
+  var query = 'SELECT * from YelpBusinesses WHERE postal_code = ' + "'" + req.params.zipcode + "'";
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {

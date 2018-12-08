@@ -18,6 +18,19 @@ app.controller('mainController', function($scope, $http) {
         };
 });
 
+app.controller('KnowYourPlaceController', function($scope, $http) {
+    $scope.message = "";
+    $scope.knowFriends = function() {
+        var request = $http.get('/knowYourPlace/'+$scope.zipcode);
+        request.success(function(data) {
+            $scope.data = data;
+        });
+        request.error(function(data){
+            console.log('err');
+        });
+    };
+});
+
 // To implement "Insert a new record", you need to:
 // - Create a new controller here
 // - Create a corresponding route handler in routes/index.js
