@@ -5,10 +5,11 @@ var path = require('path');
 // Connect string to MySQL
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'fling.seas.upenn.edu',
-  user     : '',
-  password : '',
-  database : ''
+  host     : 'cis550jsw.cu9cp39fmb3y.us-east-2.rds.amazonaws.com',
+  user     : 'jswangnyc',
+  password : '550Pals2018!',
+  database : '',
+  port : 3306
 });
 
 /* GET home page. */
@@ -52,11 +53,11 @@ router.get('/data', function(req, res, next) {
 });
 
 router.get('/knowYourPlace', function(req, res) {
-
+  res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
 router.get('findYourPlace', function(req, res) {
-
+  res.sendFile(path.join(__dirname, '../', 'views', 'findYourPlace.html'));
 });
 
 router.get('/data/:email', function(req,res) {
