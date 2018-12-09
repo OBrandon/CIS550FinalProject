@@ -79,15 +79,130 @@
     </style>
   </head>
   <body>
+    Enter zip code: <input type="text" id="zipCode"><br>
+    <button type="button" onclick="updateMap()">Go!</button><br>
+    <div id="zipCodeEntered">Your Zip Code: </div>
     <div id="map"></div>
     <script>
       var map;
+      var geocoder;
+      var validZips = ['88901', '88905', '89101', '89102', '89104', '89106', '89107', '89108', '89109', 
+      '89110', '89116', '89117', '89124', '89125', '89126', '89127', '89128', '89129', '89130', '89131', '89133', '89134', '89136'
+      , '89137', '89138', '89143', '89144', '89145', '89146', '89147', '89149', '89151', '89152', '89153', '89154'
+      , '89155', '89157', '89161', '89162', '89163', '89164', '89166', '89185'];
       function initMap() {
+        geocoder = new google.maps.Geocoder();
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 36.1699, lng: -115.1398},
           zoom: 8
         });
       }
+
+      function updateMap() {
+        geocoder = new google.maps.Geocoder();
+        var zipCode = document.getElementById('zipCode').value;
+        var valid = false;
+        var validZip = '';
+        for (i = 0; i < validZips.length; i++){
+            validZip = validZips[i];
+            console.log("zipCode: " + zipCode + "\n validZip: " + validZip);
+            if (zipCode == validZip){
+                console.log("zipCode is valid");
+                valid = true;
+            }
+        }
+
+        if (valid){
+            var lat = '';
+            var lng = '';
+            geocoder.geocode( { 'address': zipCode}, function(results, status){
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    lat = results[0].geometry.location.lat();
+                    lng = results[0].geometry.location.lng();
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+            //var center = new google.maps.LatLng(lat,lng);
+            //map.panTo(center);
+            map.setZoom(12);
+            var customizedZipText = document.getElementById('zipCodeEntered');
+            customizedZipText.innerHTML = 'Your Zip Code: ' + zipCode;
+        } else {
+            alert("Invalid zipcode: The zipcode you entered is not in Las Vegas. Please try again.");
+        }
+        
+      }
+
+      function loadGeoData(){
+        // Send a request for the location data to the server, and provide a callback
+        // function that will be called when the data has been retrieved
+
+
+        $.get('/getGeoData', function(data) {
+
+            var dictionary = JSON.parse(data);
+            for(var key in dictionary){
+                var value = dictionary[key];
+                
+                
+            }
+            var array = data.split("\n");
+
+          // ... and then iterate over the lines
+
+          for (var i = 0; i < array.length; i ++) {
+
+            // Each line needs to be parsed futher
+
+            var thisLine = array[i].split(/\s+/);
+            var position = thisLine[0];
+            var url = thisLine[1];
+            var photo = thisLine[2];
+            var positionLine = position.split(/[(,)]/);
+            var latitude = positionLine[1];
+            var longitude = positionLine[2];
+
+            // Now we create a marker at the location that was specified in the line
+
+            var myLatlng = new google.maps.LatLng(latitude,longitude);
+            var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    title: url,
+                    content: "<a href = " + url + ">" + "</a>",
+            });
+
+            marker.setMap(map);
+
+            // We also want to be able to show a little info window when someone
+            // clicks on the marker. The idea is that the window should show:
+            //    * A clickable (!), scaled-down version of the image at that
+            //      location (150x150 pixels), and
+            //    * The text "DBpedia URL: xxx" below the image (where 'xxx' is
+            //      the actual DBpedia URL).
+            // The DBpedia URL is already available as 'url' at this point, and the
+            // image URL is available as 'photo'.
+
+            var contentString = 'DBpedia URL:' + url;
+
+            // Now we create the info window (which is initially hidden)...
+
+        marker['infowindow'] = new google.maps.InfoWindow({
+        content: "<img src = " + photo + " width = 150 height = 150 />" + contentString
+        });
+
+            // ... and we add a 'listener' function to the marker that will
+            // be called when someone clicks on it. The listener will then
+            // open the info window we just created.
+
+        google.maps.event.addListener(marker, 'click', function() {
+        this['infowindow'].open(map, this);
+        });
+          }
+    }, 'text');
+      }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq-B9Ql50MXlr9RwdwzCHcwno2hq3h_U&callback=initMap"
     async defer></script>
