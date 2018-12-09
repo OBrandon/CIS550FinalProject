@@ -29,6 +29,34 @@
           height: 600px; /* set max desired height for the ENTIRE set up */
           max-height: 100vh; /* make sure entire setup height never exceeds device height */
         }
+
+        /* Style the button that is used to open and close the collapsible content */
+        .collapsible {
+          background-color: #eee;
+          color: #444;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: middle;
+          outline: none;
+          font-size: 15px;
+        }
+
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .active, .collapsible:hover {
+          background-color: #ccc;
+        }
+
+        /* Style the collapsible content. Note: hidden by default */
+        .content {
+          padding: 0 18px;
+          background-color: white;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+        }
+
     </style>
   </head>
   <body>
@@ -42,10 +70,85 @@
     <div class="main">
 
       <div id="sideBar" class="pre-scrollable">
-        <span>Sidebar content goes here...
+        <span>
+          <p>Ready to find your dream home?</p>
+          <p>Find the best neighborhood for your preferences...</p>
+          <button class="collapsible">Food</button>
+            <div class="content">
+
+            <div>
+                <input type="checkbox" id="delivery" name="delivery">
+                <label for="delivery">Delivery</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="onedollarsign" name="onedollarsign">
+                <label for="onedollarsign">$</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="twodollarsigns" name="twodollarsigns">
+                <label for="twodollarsigns">$$</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="threedollarsigns" name="threedollarsigns">
+                <label for="threedollarsigns">$$$</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="weekends" name="weekends">
+                <label for="weekends">Open on Weekends</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="vegan" name="vegan">
+                <label for="vegan">Vegan Options</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="vegetarian" name="vegetarian">
+                <label for="vegetarian">Vegetarian Options</label>
+              </div>
+
+            </div>
+          <button class="collapsible">Nightlife</button>
+            <div class="content">
+            <div>
+                <input type="checkbox" id="bars" name="bars">
+                <label for="bars">Bars</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="clubs" name="clubs">
+                <label for="clubs">Clubs</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="casinos" name="casinos">
+                <label for="casinos">Casinos</label>
+              </div>
+
+            </div>
+          <button class="collapsible">Coffee and Tea</button>
+            <div class="content">
+            <p>Family</p>
+            </div>
+          <button class="collapsible">Kids and Family</button>
+            <div class="content">
+            <p>Family</p>
+            </div>
+          <button class="collapsible">Recreation</button>
+            <div class="content">
+            <p>Family</p>
+            </div>
+          <form>
+          <div>
+            <button type="submit">Go!</button>
+           </div>
+          </form>
         </span>
       </div>
-
 
       <div id="map_wrapper">
         <div id="map" style='width: 100%; height: 100%;'></div>
@@ -53,6 +156,23 @@
 
     </div>
 
+     <!-- Event listener for Collapsible objects -->
+    <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.maxHeight){
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } 
+        });
+      }
+    </script>
 
 
   <!-- Load google API in the footer. -->

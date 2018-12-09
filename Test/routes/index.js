@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   host     : 'cis550jsw.cu9cp39fmb3y.us-east-2.rds.amazonaws.com',
   user     : 'jswangnyc',
   password : '550Pals2018!',
-  database : '',
+  database : 'yelp550',
   port : 3306
 });
 
@@ -56,8 +56,12 @@ router.get('/knowYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
-router.get('findYourPlace', function(req, res) {
+router.get('/findYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'findYourPlace.html'));
+});
+
+router.get('/findYourPlace/results', function(req, res) {
+
 });
 
 router.get('/data/:email', function(req,res) {

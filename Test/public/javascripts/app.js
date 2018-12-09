@@ -18,6 +18,15 @@ app.controller('mainController', function($scope, $http) {
         };
 });
 
+// Controller that receives the checked inputs from "Find your Place" and outputs the businesses
+app.controller('findYourPlaceController', function($scope, $http) {
+    $scope.message = "";
+    $scope.Find = function() {
+
+    };
+
+});
+
 // To implement "Insert a new record", you need to:
 // - Create a new controller here
 // - Create a corresponding route handler in routes/index.js
