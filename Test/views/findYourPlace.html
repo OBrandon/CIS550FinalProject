@@ -81,6 +81,7 @@
   <body>
     Enter zip code: <input type="text" id="zipCode"><br>
     <button type="button" onclick="updateMap()">Go!</button><br>
+    <button type="button" onclick="loadBusinessData()">Try it!</button><br>
     <div id="zipCodeEntered">Your Zip Code: </div>
     <div id="map"></div>
     <script>
@@ -135,72 +136,53 @@
         
       }
 
-      function loadGeoData(){
+      function loadBusinessData(){
+        var data = [{"business_id":"7pw8fNAMV9eLacqsWgn6lg","name":"Las Vegas Vital Records","neighborhood":"Summerlin","address":"2232 Brighton Shore St","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.200629,"longitude":-115.271155,"stars":1.0,"review_count":5,"is_open":1,"attributes":null,"categories":"Courthouses, Public Services & Government","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
+        {"business_id":"rmqbBREx12wU80q_moTfGg","name":"Red Rock Photography Studios","neighborhood":"","address":"","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.18,"longitude":-115.14,"stars":5.0,"review_count":3,"is_open":0,"attributes":null,"categories":"Photographers, Event Planning & Services","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
+        {"business_id":"MBStgZpjz6BxS_edFOiEDw","name":"Wildlife Habitat","neighborhood":"The Strip","address":"3555 Las Vegas Blvd S","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.1163563463,"longitude":-115.172371485,"stars":3.5,"review_count":47,"is_open":1,"attributes":{"BikeParking":"False","BusinessAcceptsCreditCards":"False","BusinessParking":"{'garage': True, 'street': False, 'validated': False, 'lot': True, 'valet': False}","GoodForKids":"True"},"categories":"Zoos, Active Life, Local Flavor","hours":null},
+        {"business_id":"vYeVKt2S1zMTMSkVQgTsAA","name":"My Affordable Handyman","neighborhood":"Northwest","address":"3450 N Hualapai Way","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.2229219,"longitude":-115.314041,"stars":1.0,"review_count":4,"is_open":0,"attributes":{"BusinessAcceptsCreditCards":"False"},"categories":"Handyman, Home Services, Professional Services, Boat Repair","hours":{"Monday":"7:0-18:30","Tuesday":"7:0-18:30","Wednesday":"7:0-18:30","Thursday":"7:0-18:30","Friday":"7:0-18:30","Saturday":"7:0-18:30"}}
+        ];
         // Send a request for the location data to the server, and provide a callback
         // function that will be called when the data has been retrieved
 
 
-        $.get('/getGeoData', function(data) {
+        //$.get('/knowYourPlace/:zipcode', function(data) {
 
-            var dictionary = JSON.parse(data);
-            for(var key in dictionary){
-                var value = dictionary[key];
-                
-                
+            for(var i = 0; i < data.length; i++) {
+                var business = data[i];
+                var latitude = business.latitude;
+                var longitude = business.longitude;
+                var delivery = business.delivery;
+                var takeout = business.takeout;
+                var name = business.name;
+                var address = business.address;
+                var rating = business.stars;
+                var contentStr = "Name: " + name + '<br>' + 
+                                 "Address: " + address + '<br>' + 
+                                 "Rating: " + rating + '<br>' +
+                                 "Delivery: " + delivery + '<br>' +
+                                 "Takeout: " + takeout;
+
+                // Create a marker for this business
+
+                var latlng = new google.maps.LatLng(latitude,longitude);
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    title: name,
+                });
+
+                marker.setMap(map);
+
+                marker['infowindow'] = new google.maps.InfoWindow({
+                    content: contentStr
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    this['infowindow'].open(map, this);
+                });
             }
-            var array = data.split("\n");
 
-          // ... and then iterate over the lines
-
-          for (var i = 0; i < array.length; i ++) {
-
-            // Each line needs to be parsed futher
-
-            var thisLine = array[i].split(/\s+/);
-            var position = thisLine[0];
-            var url = thisLine[1];
-            var photo = thisLine[2];
-            var positionLine = position.split(/[(,)]/);
-            var latitude = positionLine[1];
-            var longitude = positionLine[2];
-
-            // Now we create a marker at the location that was specified in the line
-
-            var myLatlng = new google.maps.LatLng(latitude,longitude);
-            var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    title: url,
-                    content: "<a href = " + url + ">" + "</a>",
-            });
-
-            marker.setMap(map);
-
-            // We also want to be able to show a little info window when someone
-            // clicks on the marker. The idea is that the window should show:
-            //    * A clickable (!), scaled-down version of the image at that
-            //      location (150x150 pixels), and
-            //    * The text "DBpedia URL: xxx" below the image (where 'xxx' is
-            //      the actual DBpedia URL).
-            // The DBpedia URL is already available as 'url' at this point, and the
-            // image URL is available as 'photo'.
-
-            var contentString = 'DBpedia URL:' + url;
-
-            // Now we create the info window (which is initially hidden)...
-
-        marker['infowindow'] = new google.maps.InfoWindow({
-        content: "<img src = " + photo + " width = 150 height = 150 />" + contentString
-        });
-
-            // ... and we add a 'listener' function to the marker that will
-            // be called when someone clicks on it. The listener will then
-            // open the info window we just created.
-
-        google.maps.event.addListener(marker, 'click', function() {
-        this['infowindow'].open(map, this);
-        });
-          }
-    }, 'text');
+       // });
       }
 
     </script>
