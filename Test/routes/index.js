@@ -96,7 +96,7 @@ router.get('/findYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'findYourPlace.html'));
 });
 
-router.get('/findYourPlace/:data', function(req, res) {
+router.get('/findYourPlace?:data', function(req, res) {
   console.log("hello");
   console.log(req.params);
 });
