@@ -52,10 +52,23 @@ router.get('/data', function(req, res, next) {
     });
 });
 
-router.get('/knowYourPlace/:zipcode', function(req, res, next) {
+/*router.get('/knowYourPlace/:zipcode', function(req, res, next) {
   console.log(req.params.zipcode)
   console.log(req.params)
   var query = 'SELECT * from YelpBusinesses WHERE postal_code = ' + "'" + req.params.zipcode + "'";
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+        res.json(rows);
+    }  
+    });
+});*/
+
+router.get('/knowYourPlace/:zipcode', function(req, res, next) {
+  console.log(req.params.zipcode)
+  console.log(req.params)
+  var query = 'SELECT Y.latitude, Y.longitude, Y.name, Y.stars, Y.address, M.RentPrice FROM YelpBusinesses Y JOIN MedianRentPricePerSqFt M ON Y.postal_code = M.RegionName WHERE Y.postal_code = ' + "'" + req.params.zipcode + "'";
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
