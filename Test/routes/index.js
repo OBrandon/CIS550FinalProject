@@ -59,6 +59,9 @@ router.get('/knowYourPlace', function(req, res) {
 router.get('/findYourPlace/:preferences', function(req, res) {
   console.log("hello?");
   console.log(req.params.preferences);
+router.get('/findYourPlace?:data', function(req, res) {
+  console.log("router activated");
+  console.log(req.params.data);
 });
 
 router.get('/data/:email', function(req,res) {

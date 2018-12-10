@@ -26,6 +26,14 @@ app.controller('findYourPlaceController', function($scope, $http) {
         var request = $http.get('/findYourPlace/'+ $scope.preferences);
         console.log($scope.preferences)
         console.log("hello!")
+    console.log("controller activated")
+    $scope.zipcode = "?????";
+    $scope.Find = function(p) {
+        var request = $http.get('/findYourPlace?'+ $scope.p);
+        console.log($scope.p)
+        console.log("find function activated in controller")
+
+
 
     };
 });
