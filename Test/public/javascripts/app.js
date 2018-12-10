@@ -23,9 +23,18 @@ app.controller('findYourPlaceController', function($scope, $http) {
     console.log("controller activated")
     $scope.zipcode = "?????";
     $scope.Find = function(p) {
-        var request = $http.get('/findYourPlace?'+ $scope.p);
-        console.log($scope.p)
-        console.log("find function activated in controller")
+        //var request = $http.get('/findYourPlace?'+ $scope.p);
+        console.log($scope.p);
+        /*var handle = "";
+        for (var key in $scope.p){
+            var attrName = key;
+            var attrValue = $scope.p[attrName];
+            handle += attrName;
+            console.log("key: " + attrName);
+            console.log("value: " + attrValue);
+        }*/
+        var request = $http.get('/findYourPlace/'+ $scope.p.delivery +'/'+ $scope.p.onedollarsign + '/'+$scope.p.twodollarsigns +'/'+$scope.p.threedollarsigns +'/'+$scope.p.fourdollarsigns +'/'+$scope.p.weekends +'/'+$scope.p.vegan+'/'+$scope.p.vegeterian+'/'+$scope.p.bars+'/'+$scope.p.clubs+'/'+$scope.p.casinos+'/'+$scope.p.cafes+'/'+$scope.p.noise+'/'+$scope.p.childcare+'/'+$scope.p.recreation);
+        console.log("find function activated in controller");
 
 
 
