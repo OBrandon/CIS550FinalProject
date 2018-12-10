@@ -57,7 +57,7 @@ router.get('/knowYourPlace', function(req, res) {
 });
 
 router.get('/findYourPlace?:data', function(req, res) {
-  console.log("hello");
+  console.log("router activated");
   console.log(req.params.data);
 });
 
