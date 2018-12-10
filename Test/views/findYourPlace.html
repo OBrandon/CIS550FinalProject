@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>       
+<html ng-app="angularjsNodejsTutorial">    
 
   <head>
     <title>Find Your Place</title>
@@ -75,8 +75,8 @@
       <div id="sidebar" class="pre-scrollable">
         <form>
         <fieldset>
-        <div ng-controller="findYourPlaceController">
-        <span>         
+        <div ng-controller="findYourPlaceController">    
+        <span>
           
           <!-- <p>Ready to find your dream home?</p> -->
           <p>Find the best neighborhood for your preferences!</p>
@@ -168,14 +168,13 @@
             <p>Rent</p>
             </div>
           
-          
-            <button type="submit" ng-click="Find()" class="button">Go!</button>
-          
-
+          <center>
+          <button type="submit" ng-click="Find()" class="button">Go!</button>
+          <input type="button" onclick="location.href='/';" value="Go Back" /> </center>
+        
         
         </span>
-        
-      </div>
+        </div>
       </fieldset>
     </form>
       </div>

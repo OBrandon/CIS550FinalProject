@@ -14,20 +14,20 @@ app.controller('mainController', function($scope, $http) {
             var request = $http.get('/knowYourPlace/');
         };
         $scope.FindYourPlace = function() {
-            var request = $http.get('/knowYourPlace/');
+            var request = $http.get('/findYourPlace/');
         };
 });
 
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
 app.controller('findYourPlaceController', function($scope, $http) {
+    console.log("hi")
     $scope.message = "";
     $scope.Find = function() {
-        var request = $http.get('/findYourPlace/'+ $scope.data);
+        var request = $http.get('/findYourPlace?'+ $scope.data);
         console.log($scope.data)
         console.log("hello")
 
     };
-
 });
 
 // To implement "Insert a new record", you need to:

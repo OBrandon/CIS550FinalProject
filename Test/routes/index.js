@@ -56,13 +56,9 @@ router.get('/knowYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
-router.get('/findYourPlace', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'findYourPlace.html'));
-});
-
 router.get('/findYourPlace?:data', function(req, res) {
   console.log("hello");
-  console.log(req.params);
+  console.log(req.params.data);
 });
 
 router.get('/data/:email', function(req,res) {
