@@ -78,6 +78,12 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
     });
 });
 
+router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollarsigns/:fourdollarsigns/:weekends/:vegan/:vegetarian/:bars/:clubs/:casinos/:cafes/:noise/:childcare/:recreation', function(req, res) {
+  console.log("router activated");
+  console.log(req.params.delivery);
+  console.log(req.params.bars);
+});
+
 router.get('/knowYourPlace', function(req, res) {
 
 });
