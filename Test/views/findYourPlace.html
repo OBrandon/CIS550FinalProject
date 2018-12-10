@@ -186,21 +186,7 @@
 
     </div>
 
-    <?php
-
-        $name = $_GET['delivery'];
-
-        if (isset($_GET['delivery'])) {
-            echo "You chose the following options(s): <br>";
-
-            foreach ($name as $delivery){
-                echo $delivery."<br />";
-            }
-        } else {
-            echo "You did not choose an option.";
-        }
-
-        ?>
+    
 
      <!-- Event listener for Collapsible objects -->
     <script>
@@ -224,5 +210,20 @@
   <!-- Load google API in the footer. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq-B9Ql50MXlr9RwdwzCHcwno2hq3h_U&callback=initMap" async defer></script>
       
+      <?php
+
+        $name = $_GET['delivery'];
+
+        if (isset($_GET['delivery'])) {
+            echo "You chose the following options(s): <br>";
+
+            foreach ($name as $delivery){
+                echo $delivery."<br />";
+            }
+        } else {
+            echo "You did not choose an option.";
+        }
+
+        ?>
   </body>
 </html>
