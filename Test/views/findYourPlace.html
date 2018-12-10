@@ -7,12 +7,12 @@
     <meta charset="utf-8">
     <style>
       #map_wrapper {
-          margin-left: 30%; /* should match sideBar width */
+          margin-left: 30%; /* should match sidebar width */
           overflow: hidden; /* cut off any overflow */
           height: 100%; /* fill up main div height */
         }
 
-        #sideBar {
+        #sidebar {
           width: 30%; /* adjust sidebar width as percentage of main div */
           max-height: 100%; /* Never exceed main div height on small screens */
           height: 600px;
@@ -20,7 +20,7 @@
           background: #131418;
         }
 
-        #sideBar span {
+        #sidebar span {
           max-height: 100%;
           height: 600px;
           overflow: auto;
@@ -72,13 +72,16 @@
     <!--Your Map setup -->
     <div class="main">
 
-      <div id="sideBar" class="pre-scrollable">
+      <div id="sidebar" class="pre-scrollable">
+        <form>
+        <fieldset>
         <div ng-controller="findYourPlaceController">
-        <span>
-          <fieldset>
-          <p>Ready to find your dream home?</p>
+        <span>         
+          
+          <!-- <p>Ready to find your dream home?</p> -->
           <p>Find the best neighborhood for your preferences!</p>
-          <button class="collapsible">Food</button>
+
+          <button class="collapsible" type="button" >Food</button>
             <div class="content">
 
             <div>
@@ -117,7 +120,7 @@
               </div>
 
             </div>
-          <button class="collapsible">Nightlife</button>
+          <button class="collapsible" type="button">Nightlife</button>
             <div class="content">
             <div>
                 <input type="checkbox" id="bars" name="preferences[]" value="bars">
@@ -135,7 +138,7 @@
               </div>
 
             </div>
-          <button class="collapsible">Coffee and Tea</button>
+          <button class="collapsible" type="button">Coffee and Tea</button>
             <div class="content">
               <div>
                 <input type="checkbox" id="cafes" name="preferences[]" value="cafes">
@@ -147,7 +150,7 @@
                 <label for="noise">Low Noise Level</label>
               </div>
             </div>
-          <button class="collapsible">Kids and Family</button>
+          <button class="collapsible" type="button">Kids and Family</button>
             <div class="content">
               <div>
                 <input type="checkbox" id="childcare" name="preferences[]" value="childcare">
@@ -160,17 +163,21 @@
               </div>
             </div>
           
-          <button class="collapsible">Rent</button>
+          <button class="collapsible" type="button">Rent</button>
             <div class="content">
             <p>Rent</p>
             </div>
           
           <div>
-            <button type="button" ng-click="Find()" class="button">Go!</button>
-           </div>
-          </fieldset>
+            <button type="submit" ng-click="Find()" class="button">Go!</button>
+          </div>
+
+        
         </span>
+        
       </div>
+      </fieldset>
+    </form>
       </div>
 
       <div id="map_wrapper">
@@ -178,6 +185,22 @@
       </div>
 
     </div>
+
+    <?php
+
+        $name = $_GET['delivery'];
+
+        if (isset($_GET['delivery'])) {
+            echo "You chose the following options(s): <br>";
+
+            foreach ($name as $delivery){
+                echo $delivery."<br />";
+            }
+        } else {
+            echo "You did not choose an option.";
+        }
+
+        ?>
 
      <!-- Event listener for Collapsible objects -->
     <script>

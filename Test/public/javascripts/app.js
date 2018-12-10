@@ -22,7 +22,9 @@ app.controller('mainController', function($scope, $http) {
 app.controller('findYourPlaceController', function($scope, $http) {
     $scope.message = "";
     $scope.Find = function() {
+        var request = $http.get('/findYourPlace/'+ $scope.data);
         console.log($scope.data)
+        console.log("hello")
 
     };
 
