@@ -57,9 +57,9 @@ app.controller('findYourPlaceController', function($scope, $http) {
     console.log("hi")
     $scope.message = "";
     $scope.Find = function() {
-        var request = $http.get('/findYourPlace?'+ $scope.data);
-        console.log($scope.data)
-        console.log("hello")
+        var request = $http.get('/findYourPlace/'+ $scope.preferences);
+        console.log($scope.preferences)
+        console.log("hello!")
 
     };
 });
