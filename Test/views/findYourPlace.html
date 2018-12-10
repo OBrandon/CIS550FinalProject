@@ -3,7 +3,7 @@
 
   <head>
     <title>Find Your Place</title>
-     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
     <script src="javascripts/app.js" type="text/javascript"></script>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
@@ -87,37 +87,37 @@
             <div class="content">
 
             <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="delivery">
+                <input type="checkbox" id="preferences" name="preferences[]" value="delivery" ng-model="preferences.delivery">
                 <label for="delivery">Delivery</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="onedollarsign">
+                <input type="checkbox" id="preferences" name="preferences[]" value="onedollarsign" ng-model="preferences.onedollarsign">
                 <label for="onedollarsign">$</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="twodollarsigns">
+                <input type="checkbox" id="preferences" name="preferences[]" value="twodollarsigns" ng-model="preferences.twodollarsigns">
                 <label for="twodollarsigns">$$</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="threedollarsigns">
+                <input type="checkbox" id="preferences" name="preferences[]" value="threedollarsigns" ng-model="preferences.threedollarsigns">
                 <label for="threedollarsigns">$$$</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="weekends">
+                <input type="checkbox" id="preferences" name="preferences[]" value="weekends" ng-model="preferences.weekends">
                 <label for="weekends">Open on Weekends</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="vegan">
+                <input type="checkbox" id="preferences" name="preferences[]" value="vegan" ng-model="preferences.vegan">
                 <label for="vegan">Vegan Options</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="vegetarian">
+                <input type="checkbox" id="preferences" name="preferences[]" value="vegetarian" ng-model="preferences.vegetarian">
                 <label for="vegetarian">Vegetarian Options</label>
               </div>
 
@@ -125,17 +125,17 @@
           <button class="collapsible" type="button">Nightlife</button>
             <div class="content">
             <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="bars">
+                <input type="checkbox" id="preferences" name="preferences[]" value="bars" ng-model="preferences.bars">
                 <label for="bars">Bars</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="clubs">
+                <input type="checkbox" id="preferences" name="preferences[]" value="clubs" ng-model="preferences.clubs">
                 <label for="clubs">Clubs</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="casinos">
+                <input type="checkbox" id="preferences" name="preferences[]" value="casinos" ng-model="preferences.casinos">
                 <label for="casinos">Casinos</label>
               </div>
 
@@ -143,24 +143,24 @@
           <button class="collapsible" type="button">Coffee and Tea</button>
             <div class="content">
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="cafes">
+                <input type="checkbox" id="preferences" name="preferences[]" value="cafes" ng-model="preferences.cafes">
                 <label for="cafes">Cafes</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="noise">
+                <input type="checkbox" id="preferences" name="preferences[]" value="noise" ng-model="preferences.noise">
                 <label for="noise">Low Noise Level</label>
               </div>
             </div>
           <button class="collapsible" type="button">Kids and Family</button>
             <div class="content">
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="childcare">
+                <input type="checkbox" id="preferences" name="preferences[]" value="childcare" ng-model="preferences.childcare">
                 <label for="childcare">Childcare</label>
               </div>
 
               <div>
-                <input type="checkbox" id="preferences" name="preferences[]" value="recreation">
+                <input type="checkbox" id="preferences" name="preferences[]" value="recreation" ng-model="preferences.recreation">
                 <label for="recreation">Recreation</label>
               </div>
             </div>
