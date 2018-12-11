@@ -73,7 +73,7 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
     if (err) console.log(err);
     else {
       console.log(rows);
-        res.json(rows);
+      res.json(rows);
     }  
     });
 });
