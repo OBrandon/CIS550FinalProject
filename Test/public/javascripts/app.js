@@ -51,7 +51,8 @@ app.controller('KnowYourPlaceController2', function($scope, $http) {
 
 
 
-    };
+    }
+});
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
 app.controller('findYourPlaceController', function($scope, $http) {
     console.log("controller activated")
