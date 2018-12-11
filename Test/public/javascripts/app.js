@@ -54,12 +54,23 @@ app.controller('KnowYourPlaceController2', function($scope, $http) {
     };
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
 app.controller('findYourPlaceController', function($scope, $http) {
+<<<<<<< HEAD
     console.log("hi")
     $scope.message = "";
     $scope.Find = function() {
         var request = $http.get('/findYourPlace/'+ $scope.preferences);
         console.log($scope.preferences)
         console.log("hello!")
+=======
+    console.log("controller activated")
+    $scope.zipcode = "?????";
+    $scope.Find = function(p) {
+        var request = $http.get('/findYourPlace?'+ $scope.p);
+        console.log($scope.p)
+        console.log("find function activated in controller")
+
+
+>>>>>>> some changes
 
     };
 });

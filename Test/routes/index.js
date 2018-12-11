@@ -92,9 +92,15 @@ router.get('/knowYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
+<<<<<<< HEAD
 router.get('/findYourPlace/:preferences', function(req, res) {
   console.log("hello?");
   console.log(req.params.preferences);
+=======
+router.get('/findYourPlace?:data', function(req, res) {
+  console.log("router activated");
+  console.log(req.params.data);
+>>>>>>> some changes
 });
 
 router.get('/data/:email', function(req,res) {
