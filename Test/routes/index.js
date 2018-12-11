@@ -9,10 +9,6 @@ var connection = mysql.createConnection({
   user     : 'jswangnyc',
   password : '550Pals2018!',
   database : 'yelp550',
-<<<<<<< HEAD
-
-=======
->>>>>>> added collapsible drop downs and some check boxes for categories
   port : 3306
 });
 
@@ -92,15 +88,11 @@ router.get('/knowYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
-<<<<<<< HEAD
-router.get('/findYourPlace/:preferences', function(req, res) {
-  console.log("hello?");
-  console.log(req.params.preferences);
-=======
-router.get('/findYourPlace?:data', function(req, res) {
+
+router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollarsigns/:fourdollarsigns/:weekends/:vegan/:vegetarian/:bars/:clubs/:casinos/:cafes/:noise/:childcare/:recreation', function(req, res) {
   console.log("router activated");
-  console.log(req.params.data);
->>>>>>> some changes
+  console.log(req.params.delivery);
+  console.log(req.params.bars);
 });
 
 router.get('/data/:email', function(req,res) {
