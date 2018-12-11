@@ -65,12 +65,111 @@
   <body>
     <!-- initilize map -->
     <script>
-      function initMap() {var map = new google.maps.Map(document.getElementById('map'), {center: {lat: 36.1699,lng: -115.1398},zoom: 12,})}
+      var map;
+      var geocoder;
+      var validZips = ['88901', '88905', '89101', '89102', '89104', '89106', '89107', '89108', '89109', 
+      '89110', '89116', '89117', '89124', '89125', '89126', '89127', '89128', '89129', '89130', '89131', '89133', '89134', '89136'
+      , '89137', '89138', '89143', '89144', '89145', '89146', '89147', '89149', '89151', '89152', '89153', '89154'
+      , '89155', '89157', '89161', '89162', '89163', '89164', '89166', '89185'];
+
+      function initMap() {
+        geocoder = new google.maps.Geocoder();
+        map = new google.maps.Map(document.getElementById('map'), 
+          {center: {lat: 36.1699,lng: -115.1398},
+          zoom: 8,
+        });
+      }
+
+      function updateMap() {
+        geocoder = new google.maps.Geocoder();
+        var zipCode = document.getElementById('zipCode').value;
+        var valid = false;
+        var validZip = '';
+        for (i = 0; i < validZips.length; i++){
+            validZip = validZips[i];
+            console.log("zipCode: " + zipCode + "\n validZip: " + validZip);
+            if (zipCode == validZip){
+                console.log("zipCode is valid");
+                valid = true;
+            }
+        }
+
+        if (valid){
+            var lat = '';
+            var lng = '';
+            geocoder.geocode( { 'address': zipCode}, function(results, status){
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    lat = results[0].geometry.location.lat();
+                    lng = results[0].geometry.location.lng();
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+            //var center = new google.maps.LatLng(lat,lng);
+            //map.panTo(center);
+            map.setZoom(11);
+            /*var customizedZipText = document.getElementById('zipCodeEntered');
+            customizedZipText.innerHTML = 'Your Zip Code: ' + zipCode;*/
+        } else {
+            alert("Invalid zipcode: The zipcode you entered is not in Las Vegas. Please try again.");
+        }
+        
+      }
+
+      function loadBusinessData(){
+        var data = [{"business_id":"7pw8fNAMV9eLacqsWgn6lg","name":"Las Vegas Vital Records","neighborhood":"Summerlin","address":"2232 Brighton Shore St","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.200629,"longitude":-115.271155,"stars":1.0,"review_count":5,"is_open":1,"attributes":null,"categories":"Courthouses, Public Services & Government","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
+        {"business_id":"rmqbBREx12wU80q_moTfGg","name":"Red Rock Photography Studios","neighborhood":"","address":"","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.18,"longitude":-115.14,"stars":5.0,"review_count":3,"is_open":0,"attributes":null,"categories":"Photographers, Event Planning & Services","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
+        {"business_id":"MBStgZpjz6BxS_edFOiEDw","name":"Wildlife Habitat","neighborhood":"The Strip","address":"3555 Las Vegas Blvd S","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.1163563463,"longitude":-115.172371485,"stars":3.5,"review_count":47,"is_open":1,"attributes":{"BikeParking":"False","BusinessAcceptsCreditCards":"False","BusinessParking":"{'garage': True, 'street': False, 'validated': False, 'lot': True, 'valet': False}","GoodForKids":"True"},"categories":"Zoos, Active Life, Local Flavor","hours":null},
+        {"business_id":"vYeVKt2S1zMTMSkVQgTsAA","name":"My Affordable Handyman","neighborhood":"Northwest","address":"3450 N Hualapai Way","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.2229219,"longitude":-115.314041,"stars":1.0,"review_count":4,"is_open":0,"attributes":{"BusinessAcceptsCreditCards":"False"},"categories":"Handyman, Home Services, Professional Services, Boat Repair","hours":{"Monday":"7:0-18:30","Tuesday":"7:0-18:30","Wednesday":"7:0-18:30","Thursday":"7:0-18:30","Friday":"7:0-18:30","Saturday":"7:0-18:30"}}
+        ];
+        // Send a request for the location data to the server, and provide a callback
+        // function that will be called when the data has been retrieved
+
+
+        //$.get('/knowYourPlace/:zipcode', function(data) {
+
+            for(var i = 0; i < data.length; i++) {
+                var business = data[i];
+                var latitude = business.latitude;
+                var longitude = business.longitude;
+                var delivery = business.delivery;
+                var takeout = business.takeout;
+                var name = business.name;
+                var address = business.address;
+                var rating = business.stars;
+                var contentStr = "Name: " + name + '<br>' + 
+                                 "Address: " + address + '<br>' + 
+                                 "Rating: " + rating + '<br>' +
+                                 "Delivery: " + delivery + '<br>' +
+                                 "Takeout: " + takeout;
+
+                // Create a marker for this business
+
+                var latlng = new google.maps.LatLng(latitude,longitude);
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    title: name,
+                });
+
+                marker.setMap(map);
+
+                marker['infowindow'] = new google.maps.InfoWindow({
+                    content: contentStr
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    this['infowindow'].open(map, this);
+                });
+            }
+
+       // });
+      }
     </script>
 
 
     <!--Your Map setup -->
-    <div class="main" ng-controller="knowYourPlaceController2">
+    <div class="main" ng-controller="KnowYourPlaceController2">
 
       <div id="sidebar" class="pre-scrollable">
         <form>
@@ -85,7 +184,7 @@
           <button class="collapsible" type="button" >Zip Code</button>
             <div class="content">
 
-            <div> Enter Zip Code: <input type="text" name="zipcode" ng-model="zipcode" value=""/></br> </div>
+            <div> Enter Zip Code: <input type="text" id="zipCode" name="zipcode" ng-model="zipcode" value=""/></br> </div>
 
             </div>
 
@@ -147,7 +246,8 @@
           
           
           <center>
-          <button type="submit" ng-click="Find(p)" class="button">Go!</button>
+          <button type="submit" onclick="updateMap()" ng-click="Find(p)" class="button">Go!</button>
+          <button type="button" onclick="loadBusinessData()">Try it!</button><br>
           <input type="button" onclick="location.href='/';" value="Go Back" /> </center>
        
         
@@ -188,6 +288,7 @@
           } 
         });
       }
+
     </script>
 
 

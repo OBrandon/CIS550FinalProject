@@ -46,7 +46,7 @@ app.controller('KnowYourPlaceController2', function($scope, $http) {
             console.log("key: " + attrName);
             console.log("value: " + attrValue);
         }*/
-        var request = $http.get('/knowYourPlace/'+ $scope.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.takeout +'/'+$scope.p.bars+'/'+$scope.p.clubs+'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
+        //var request = $http.get('/knowYourPlace/'+ $scope.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.takeout +'/'+$scope.p.bars+'/'+$scope.p.clubs+'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
         console.log("find function activated in controller");
 
 
