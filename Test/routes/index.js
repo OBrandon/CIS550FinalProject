@@ -56,12 +56,151 @@ router.get('/knowYourPlace', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
-router.get('/findYourPlace/:preferences', function(req, res) {
-  console.log("hello?");
-  console.log(req.params.preferences);
-router.get('/findYourPlace?:data', function(req, res) {
+router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollarsigns/:fourdollarsigns/:weekends/:vegan/:vegetarian/:bars/:clubs/:casinos/:cafes/:noise/:childcare/:recreation/:low/:mid/:high', function(req, res) {
   console.log("router activated");
-  console.log(req.params.data);
+  var query = 'SELECT postal_code, count(*) FROM YelpBusinesses';
+  var restaurant = false;
+  var atLeastOne = false;
+  // Restaurants settings
+  if (req.params.delivery == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR delivery = TRUE';
+    } else {
+      query = query + ' WHERE delivery = TRUE';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.onedollarsign == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR price_range = 1';
+    } else {
+      query = query + ' WHERE price_range = 1';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.twodollarsigns == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR price_range = 2';
+    } else {
+      query = query + ' WHERE price_range = 2';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.threedollarsigns == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR price_range = 3';
+    } else {
+      query = query + ' WHERE price_range = 3';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.fourdollarsigns == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR price_range = 4';
+    } else {
+      query = query + ' WHERE price_range = 4';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.weekends == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR hours_Saturday IS NOT NULL OR hours_Sunday IS NOT NULL';
+    } else {
+      query = query + ' WHERE hours_Saturday IS NOT NULL OR hours_Sunday IS NOT NULL';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.vegan == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Vegan%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Vegan%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.vegetarian == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Vegetarian%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Vegetarian%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (restaurant) {
+    query = query + ' AND categories LIKE "%Restaurants%"';
+  }
+
+  /* Coffees and Tees */
+  if (req.params.cafes == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Coffee & Tea%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Coffee & Tea%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.noise == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR noise_level = "quiet"';
+    } else {
+      query = query + ' WHERE noise_level = "quiet"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+
+  /* Nightlife */
+  if (req.params.casinos == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Casinos%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Casinos%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.clubs == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Dance Clubs%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Dance Clubs%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.bars == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Bars%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Bars%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+
+  /* Family */
+  if (req.params.childcare == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Child Care & Day Care%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Child Care & Day Care%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.recreation == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Recreation%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Recreation%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+
+  query = query + ' GROUP BY postal_code ORDER BY count(*) DESC LIMIT 1';
+  console.log(query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+        res.json(rows);
+    }  
+  });  
 });
 
 router.get('/data/:email', function(req,res) {

@@ -13,7 +13,6 @@
           overflow: hidden; /* cut off any overflow */
           height: 100%; /* fill up main div height */
         }
-
         #sidebar {
           width: 30%; /* adjust sidebar width as percentage of main div */
           max-height: 100%; /* Never exceed main div height on small screens */
@@ -21,20 +20,17 @@
           position: absolute;
           background: #131418;
         }
-
         #sidebar span {
           max-height: 100%;
           height: 600px;
           overflow: auto;
           color: #999;
         }
-
         .main {
           max-width: 100vw; /* set max desired width for the ENTIRE set up */
           height: 600px; /* set max desired height for the ENTIRE set up */
           max-height: 100vh; /* make sure entire setup height never exceeds device height */
         }
-
         /* Style the button that is used to open and close the collapsible content */
         .collapsible {
           background-color: #eee;
@@ -47,12 +43,10 @@
           outline: none;
           font-size: 15px;
         }
-
         /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
         .active, .collapsible:hover {
           background-color: #ccc;
         }
-
         /* Style the collapsible content. Note: hidden by default */
         .content {
           padding: 0 18px;
@@ -61,7 +55,6 @@
           overflow: hidden;
           transition: max-height 0.2s ease-out;
         }
-
     </style>
   </head>
   <body>
@@ -88,70 +81,42 @@
             <div class="content">
 
             <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="delivery" ng-model="preferences.delivery">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.delivery" value="delivery">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="delivery">Delivery</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="onedollarsign" ng-model="preferences.onedollarsign">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.onedollarsign" value="onedollarsign">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="onedollarsign">$</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="twodollarsigns" ng-model="preferences.twodollarsigns">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.twodollarsigns" value="twodollarsigns">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="twodollarsigns">$$</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="threedollarsigns" ng-model="preferences.threedollarsigns">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.threedollarsigns" value="threedollarsigns">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="threedollarsigns">$$$</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="weekends" ng-model="preferences.weekends">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.fourdollarsigns" value="fourdollarsigns">
                 <label for="fourdollarsigns">$$$$</label>
               </div>
 
               <div>
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.weekends" value="weekends">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="weekends">Open on Weekends</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="vegan" ng-model="preferences.vegan">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.vegan" value="vegan">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="vegan">Vegan Options</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="vegetarian" ng-model="preferences.vegetarian">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.vegetarian" value="vegetarian">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="vegetarian">Vegetarian Options</label>
               </div>
 
@@ -159,29 +124,17 @@
           <button class="collapsible" type="button">Nightlife</button>
             <div class="content">
             <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="bars" ng-model="preferences.bars">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.bars" value="bars">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="bars">Bars</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="clubs" ng-model="preferences.clubs">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.clubs" value="clubs">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="clubs">Clubs</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="casinos" ng-model="preferences.casinos">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.casinos" value="casinos">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="casinos">Casinos</label>
               </div>
 
@@ -189,47 +142,44 @@
           <button class="collapsible" type="button">Coffee and Tea</button>
             <div class="content">
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="cafes" ng-model="preferences.cafes">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.cafes" value="cafes">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="cafes">Cafes</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="noise" ng-model="preferences.noise">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.noise" value="noise">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="noise">Low Noise Level</label>
               </div>
             </div>
           <button class="collapsible" type="button">Kids and Family</button>
             <div class="content">
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="childcare" ng-model="preferences.childcare">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.childcare" value="childcare">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="childcare">Childcare</label>
               </div>
 
               <div>
-<<<<<<< HEAD
-                <input type="checkbox" id="preferences" name="preferences[]" value="recreation" ng-model="preferences.recreation">
-=======
                 <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.recreation" value="recreation">
->>>>>>> 22055891cebed40c51a6276d643ab4bbe864633f
                 <label for="recreation">Recreation</label>
               </div>
             </div>
           
           <button class="collapsible" type="button">Rent</button>
             <div class="content">
-            <p>Rent</p>
+              <div>
+                <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.low" value="low">
+                <label for="childcare">Under $1200</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.mid" value="mid">
+                <label for="recreation">$1200 to $1500</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="preferences" name="preferences[]" ng-model="p.high" value="high">
+                <label for="recreation">Over $1500</label>
+              </div>
             </div>
           
           <center>
@@ -265,7 +215,6 @@
     <script>
       var coll = document.getElementsByClassName("collapsible");
       var i;
-
       for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
