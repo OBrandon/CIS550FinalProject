@@ -78,9 +78,9 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
     });
 });
 
-router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollarsigns/:fourdollarsigns/:weekends/:vegan/:vegetarian/:bars/:clubs/:casinos/:cafes/:noise/:childcare/:recreation', function(req, res) {
+router.get('/knowYourPlace/:zipcode/:cuisine/:pricerange/:delivery/:takeout/:bars/:clubs/:casinos/:rentprice/:listprice/:housevalue', function(req, res) {
   console.log("router activated");
-  console.log(req.params.delivery);
+  console.log(req.params.cuisine);
   console.log(req.params.bars);
 });
 
