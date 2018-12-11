@@ -1,95 +1,62 @@
 <!DOCTYPE html>
-<html>
-
-  <div class="wrapper">
-
-    <!-- Sidebar -->
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <p>Dummy Heading</p>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- Page Content -->
-    <div id="content">
-        <!-- We'll fill this with dummy content -->
-    </div>
-
-</div>       
+<html>       
 
   <head>
     <title>Find Your Place</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        width: 90%;
-        margin: 0;
-        padding-left: 0;
-      }
+      #map_wrapper {
+          margin-left: 30%; /* should match sideBar width */
+          overflow: hidden; /* cut off any overflow */
+          height: 100%; /* fill up main div height */
+        }
+
+        #sideBar {
+          width: 30%; /* adjust sidebar width as percentage of main div */
+          max-height: 100%; /* Never exceed main div height on small screens */
+          height: 600px;
+          position: absolute;
+          background: #131418;
+        }
+
+        #sideBar span {
+          color: #999;
+        }
+
+        .main {
+          max-width: 100vw; /* set max desired width for the ENTIRE set up */
+          height: 600px; /* set max desired height for the ENTIRE set up */
+          max-height: 100vh; /* make sure entire setup height never exceeds device height */
+        }
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <!-- initilize map -->
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 36.1699, lng: -115.1398},
-          zoom: 8
-        });
-      }
+      function initMap() {var map = new google.maps.Map(document.getElementById('map'), {center: {lat: 36.1699,lng: -115.1398},zoom: 12,})}
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq-B9Ql50MXlr9RwdwzCHcwno2hq3h_U&callback=initMap"
-    async defer></script>
+
+
+    <!--Your Map setup -->
+    <div class="main">
+
+      <div id="sideBar" class="pre-scrollable">
+        <span>Sidebar content goes here...
+        </span>
+      </div>
+
+
+      <div id="map_wrapper">
+        <div id="map" style='width: 100%; height: 100%;'></div>
+      </div>
+
+    </div>
+
+
+
+  <!-- Load google API in the footer. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrq-B9Ql50MXlr9RwdwzCHcwno2hq3h_U&callback=initMap" async defer></script>
+      
   </body>
 </html>

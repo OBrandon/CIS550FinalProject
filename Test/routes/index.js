@@ -9,6 +9,7 @@ var connection = mysql.createConnection({
   user     : 'jswangnyc',
   password : '550Pals2018!',
   database : 'yelp550',
+
   port : 3306
 });
 
@@ -85,11 +86,11 @@ router.get('/knowYourPlace/:zipcode/:cuisine/:pricerange/:delivery/:takeout/:bar
 });
 
 router.get('/knowYourPlace', function(req, res) {
-
+  res.sendFile(path.join(__dirname, '../', 'views', 'knowYourPlace.html'));
 });
 
 router.get('findYourPlace', function(req, res) {
-
+  res.sendFile(path.join(__dirname, '../', 'views', 'findYourPlace.html'));
 });
 
 router.get('/data/:email', function(req,res) {
