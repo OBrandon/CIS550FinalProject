@@ -198,7 +198,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     if (err) console.log(err);
     else {
       console.log(rows);
-        res.json(rows);
+      res.json(rows);
     }  
   });  
 });
