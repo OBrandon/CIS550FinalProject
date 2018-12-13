@@ -72,7 +72,7 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }  
     });
@@ -85,7 +85,7 @@ router.get('/findYourPlace/:zipcode', function(req, res, next) {
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }  
     });
@@ -162,6 +162,8 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
   var query = 'SELECT postal_code, count(*) FROM YelpBusinesses';
   var restaurant = false;
   var atLeastOne = false;
+  var rent = false;
+  var atLeastOneRent = false;
   // Restaurants settings
   if (req.params.delivery == 'true') {
     if (atLeastOne) {
@@ -238,15 +240,16 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Coffee & Tea%"';
       atLeastOne = true;
-    } restaurant = true;   
+    } 
   }
+  
   if (req.params.noise == 'true') {
     if (atLeastOne) {
       query = query + ' OR noise_level = "quiet"';
     } else {
       query = query + ' WHERE noise_level = "quiet"';
       atLeastOne = true;
-    } restaurant = true;   
+    }  
   }
 
   /* Nightlife */
@@ -256,7 +259,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Casinos%"';
       atLeastOne = true;
-    } restaurant = true;   
+    } 
   }
   if (req.params.clubs == 'true') {
     if (atLeastOne) {
@@ -264,7 +267,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Dance Clubs%"';
       atLeastOne = true;
-    } restaurant = true;   
+    } 
   }
   if (req.params.bars == 'true') {
     if (atLeastOne) {
@@ -272,7 +275,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Bars%"';
       atLeastOne = true;
-    } restaurant = true;   
+    }    
   }
 
   /* Family */
@@ -282,7 +285,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Child Care & Day Care%"';
       atLeastOne = true;
-    } restaurant = true;   
+    }  
   }
   if (req.params.recreation == 'true') {
     if (atLeastOne) {
@@ -290,7 +293,45 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
     } else {
       query = query + ' WHERE categories LIKE "%Recreation%"';
       atLeastOne = true;
-    } restaurant = true;   
+    }
+  }
+
+  var rentQuery = "(SELECT RegionName FROM MedianRentPricePerSqFt";
+  /* RENT */
+  if (req.params.low == 'true') {
+    if (atLeastOneRent) {
+      rentQuery = rentQuery + ' OR RentPrice < 1200';
+    } else {
+      rentQuery = rentQuery + ' WHERE RentPrice < 1200';
+    } rent = true;
+    atLeastOneRent = true;
+  }
+  if (req.params.mid == 'true') {
+    if (atLeastOneRent) {
+      rentQuery = rentQuery + ' OR RentPrice < 1500';
+    } else {
+      rentQuery = rentQuery + ' WHERE RentPrice < 1500';
+    } rent = true;
+    atLeastOneRent = true;
+  }
+  if (req.params.high == 'true') {
+    if (atLeastOneRent) {
+      rentQuery = rentQuery + ' OR RentPrice > 1500';
+    } else {
+      rentQuery = rentQuery + ' WHERE RentPrice > 1500';
+    } rent = true;
+    atLeastOneRent = true;
+  }
+
+  rentQuery = rentQuery + ')'; // closing rent query
+
+  // If rent restrictions are selected, narrow down to postal_codes only in those
+  if (rent) {
+    if (atLeastOne) {
+      query = query + " AND postal_code IN " + rentQuery; 
+    } else {
+      query = query + " WHERE postal_code IN " + rentQuery; 
+    }
   }
 
   query = query + ' GROUP BY postal_code ORDER BY count(*) DESC LIMIT 1';
@@ -298,7 +339,7 @@ router.get('/findYourPlace/:delivery/:onedollarsign/:twodollarsigns/:threedollar
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }  
   });  
