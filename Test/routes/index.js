@@ -78,10 +78,65 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
     });
 });
 
-router.get('/knowYourPlace/:zipcode/:cuisine/:pricerange/:delivery/:takeout/:bars/:clubs/:casinos/:rentprice/:listprice/:housevalue', function(req, res) {
+router.get('/knowYourPlace/:zipcode/:cuisine/:pricerange/:delivery/:bars/:clubs/:casinos/:rentprice/:listprice/:housevalue', function(req, res) {
   console.log("router activated");
-  console.log(req.params.cuisine);
-  console.log(req.params.bars);
+  var query = 'SELECT *, AVG(stars) as avg_stars, AVG(review_count) as avg_reviews, AVG(price_range) as avg_price_range FROM YelpBusinesses Y JOIN MedianRentPricePerSqFt M ON Y.postal_code = M.RegionName JOIN MedianListPricePerSqFt ML ON Y.postal_code = ML.RegionName' + 
+  ' JOIN MedianValuePerSqFt MV ON Y.postal_code = MV.RegionName WHERE Y.postal_code = ' + "'" + req.params.zipcode + "'";
+  var restaurant = false;
+  var atLeastOne = true;
+  if (req.params.pricerange == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR price_range = 1' + ' OR price_range = 2' + ' OR price_range = 3' + ' OR price_range = 4';
+    } else {
+      query = query + ' WHERE price_range = 1';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.delivery == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR delivery = TRUE';
+    } else {
+      query = query + ' WHERE delivery = TRUE';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+
+  /* Nightlife */
+  if (req.params.casinos == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Casinos%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Casinos%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.clubs == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Dance Clubs%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Dance Clubs%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+  if (req.params.bars == 'true') {
+    if (atLeastOne) {
+      query = query + ' OR categories LIKE "%Bars%"';
+    } else {
+      query = query + ' WHERE categories LIKE "%Bars%"';
+      atLeastOne = true;
+    } restaurant = true;   
+  }
+
+query = query + ' GROUP BY Y.neighborhood ORDER BY count(*)';
+
+  console.log(query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }  
+  });  
 });
 
 router.get('/knowYourPlace', function(req, res) {

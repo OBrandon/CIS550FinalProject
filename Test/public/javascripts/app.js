@@ -18,10 +18,36 @@ app.controller('mainController', function($scope, $http) {
         };
 });
 
-app.controller('KnowYourPlaceController', function($scope, $http) {
-    $scope.message = "";
-    $scope.knowFriends = function() {
-        var request = $http.get('/knowYourPlace/'+$scope.zipcode);
+// app.controller('KnowYourPlaceController', function($scope, $http) {
+//     $scope.message = "";
+//     $scope.knowFriends = function() {
+//         var request = $http.get('/knowYourPlace/'+$scope.zipcode);
+//         request.success(function(data) {
+//             $scope.data = data;
+//         });
+//         request.error(function(data){
+//             console.log('err');
+//         });
+//     };
+// });
+
+// Controller that receives the checked inputs from "Find your Place" and outputs the businesses
+app.controller('KnowYourPlaceController2', function($scope, $http) {
+    $scope.Find = function(p) {
+        //var request = $http.get('/findYourPlace?'+ $scope.p);
+        console.log($scope.p);
+        console.log("find function activated in controller know your placeknow your placeknow your place");
+        var request = $http.get('/knowYourPlace/'+ $scope.p.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.bars +'/'+$scope.p.clubs +'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
+        request.success(function(data) {
+            $scope.data = data[0];
+            console.log(data[0]);
+        });
+        request.error(function(data) {
+            console.log('err');
+        });
+    };
+    $scope.knowFriends = function(p) {
+        var request = $http.get('/knowYourPlace/'+$scope.p.zipcode);
         request.success(function(data) {
             $scope.data = data;
         });
@@ -29,29 +55,6 @@ app.controller('KnowYourPlaceController', function($scope, $http) {
             console.log('err');
         });
     };
-});
-
-// Controller that receives the checked inputs from "Find your Place" and outputs the businesses
-app.controller('KnowYourPlaceController2', function($scope, $http) {
-    console.log("controller activated")
-    $scope.zipcode = "?????";
-    $scope.Find = function(p) {
-        //var request = $http.get('/findYourPlace?'+ $scope.p);
-        console.log($scope.p);
-        /*var handle = "";
-        for (var key in $scope.p){
-            var attrName = key;
-            var attrValue = $scope.p[attrName];
-            handle += attrName;
-            console.log("key: " + attrName);
-            console.log("value: " + attrValue);
-        }*/
-        //var request = $http.get('/knowYourPlace/'+ $scope.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.takeout +'/'+$scope.p.bars+'/'+$scope.p.clubs+'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
-        console.log("find function activated in controller");
-
-
-
-    }
 });
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
 app.controller('findYourPlaceController', function($scope, $http) {
