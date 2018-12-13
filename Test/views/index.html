@@ -9,14 +9,17 @@
             body {
               margin: 0;
               font-family: Arial, Helvetica, sans-serif;
+              opacity: 0.65;
+              background-size: 100% 190%;
             }
 
             .topnav {
               overflow: hidden;
               background-color: #333;
-            }
 
+            }
             .topnav a {
+              opacity:1;
               float: left;
               color: #f2f2f2;
               text-align: center;
@@ -52,9 +55,13 @@
               border-radius: 12px;
             }
 
+            .jumbotron {
+              color: #737373;
+            }
+
             </style>
     </head>
-    <body data-spy="scroll" data-target=".scrollspy">
+    <body data-spy="scroll" data-target=".scrollspy" background="http://itmonitor.zenoss.com/wp-content/uploads/2016/07/shutterstock_217191592.jpg">
 
         <div class="topnav">
          <a>Zelp</a>
@@ -69,6 +76,8 @@
             <div class="jumbotron">
          <div ng-controller="mainController">
         <p><center>
+          <h2>Find the right home for your preferences</h2>
+          <h4>Already have a place in mind, or ready to start from scratch?</h4>
             <button type="button" onclick="location.href='/findYourPlace'" class="button">Find Your Place</button>
             <button type="button" onclick="location.href='/knowYourPlace'" class="button">Know Your Place</button>
         </p></center>
