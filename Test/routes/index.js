@@ -78,6 +78,19 @@ router.get('/knowYourPlace/:zipcode', function(req, res, next) {
     });
 });
 
+router.get('/findYourPlace/:zipcode', function(req, res, next) {
+  console.log(req.params.zipcode)
+  console.log(req.params)
+  var query = 'SELECT Y.latitude, Y.longitude, Y.name, Y.stars, Y.address FROM YelpBusinesses Y WHERE Y.postal_code = ' + "'" + req.params.zipcode + "'";
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }  
+    });
+});
+
 router.get('/knowYourPlace/:zipcode/:cuisine/:pricerange/:delivery/:bars/:clubs/:casinos/:rentprice/:listprice/:housevalue', function(req, res) {
   console.log("router activated");
   var query = 'SELECT *, AVG(stars) as avg_stars, AVG(review_count) as avg_reviews, AVG(price_range) as avg_price_range FROM YelpBusinesses Y JOIN MedianRentPricePerSqFt M ON Y.postal_code = M.RegionName JOIN MedianListPricePerSqFt ML ON Y.postal_code = ML.RegionName' + 

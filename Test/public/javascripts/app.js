@@ -32,47 +32,8 @@ app.controller('mainController', function($scope, $http) {
 // });
 
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
-app.controller('KnowYourPlaceController2', function($scope, $http) {
-    $scope.Find = function(p) {
-        //var request = $http.get('/findYourPlace?'+ $scope.p);
-        console.log($scope.p);
-        console.log("find function activated in controller know your placeknow your placeknow your place");
-        var request = $http.get('/knowYourPlace/'+ $scope.p.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.bars +'/'+$scope.p.clubs +'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
-        request.success(function(data) {
-            $scope.data = data[0];
-            console.log(data[0]);
-        });
-        request.error(function(data) {
-            console.log('err');
-        });
-    };
-    $scope.knowFriends = function(p) {
-        var request = $http.get('/knowYourPlace/'+$scope.p.zipcode);
-        request.success(function(data) {
-            $scope.data = data;
-        });
-        request.error(function(data){
-            console.log('err');
-        });
-    };
-});
+//Was placed in the knowyourplace file cause that's where it would work for the data. 
 // Controller that receives the checked inputs from "Find your Place" and outputs the businesses
-app.controller('findYourPlaceController', function($scope, $http) {
-    console.log("controller activated")
-    $scope.Find = function(p) {
-        //var request = $http.get('/findYourPlace?'+ $scope.p);
-        console.log($scope.p);
-        var request = $http.get('/findYourPlace/'+ $scope.p.delivery +'/'+ $scope.p.onedollarsign + '/'+$scope.p.twodollarsigns +'/'+$scope.p.threedollarsigns +'/'+$scope.p.fourdollarsigns +'/'+$scope.p.weekends +'/'+$scope.p.vegan+'/'+$scope.p.vegetarian+'/'+$scope.p.bars+'/'+$scope.p.clubs+'/'+$scope.p.casinos+'/'+$scope.p.cafes+'/'+$scope.p.noise+'/'+$scope.p.childcare+'/'+$scope.p.recreation+'/'+$scope.p.low+'/'+$scope.p.mid+'/'+$scope.p.high);
-        console.log("find function activated in controller");
-        request.success(function(data) {
-            $scope.zipcode = data[0].postal_code;
-            console.log(data[0].postal_code)
-        });
-        request.error(function(data) {
-            console.log('err');
-        });
-    };
-});
 
 // To implement "Insert a new record", you need to:
 // - Create a new controller here

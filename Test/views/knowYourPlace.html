@@ -79,54 +79,59 @@
           zoom: 8,
         });
       }
+      var app = angular.module('angularjsNodejsTutorial',[]);
+      app.controller('KnowYourPlaceController2', function($scope, $http) {
+          $scope.Find = function(p) {
+              //var request = $http.get('/findYourPlace?'+ $scope.p);
+              console.log($scope.p);
+              console.log("find function activated in controller know your placeknow your placeknow your place");
+              var request = $http.get('/knowYourPlace/'+ $scope.p.zipcode +'/'+ $scope.p.cuisine + '/'+$scope.p.pricerange +'/'+$scope.p.delivery +'/'+$scope.p.bars +'/'+$scope.p.clubs +'/'+$scope.p.casinos+'/'+$scope.p.rentprice+'/'+$scope.p.listprice+'/'+$scope.p.housevalue);
+              request.success(function(data) {
+                  $scope.data = data[0];
+                  console.log(data[0]);
+              });
+              request.error(function(data) {
+                  console.log('err');
+              });
+          };
+          $scope.knowFriends = function(p) {
+              var request = $http.get('/knowYourPlace/'+$scope.p.zipcode);
+              geocoder = new google.maps.Geocoder();
+              var zipCode = document.getElementById('zipCode').value;
+              var valid = false;
+              var validZip = '';
+              for (i = 0; i < validZips.length; i++){
+                  validZip = validZips[i];
+                  console.log("zipCode: " + zipCode + "\n validZip: " + validZip);
+                  if (zipCode == validZip){
+                      console.log("zipCode is valid");
+                      valid = true;
+                  }
+              }
 
-      function updateMap() {
-        geocoder = new google.maps.Geocoder();
-        var zipCode = document.getElementById('zipCode').value;
-        var valid = false;
-        var validZip = '';
-        for (i = 0; i < validZips.length; i++){
-            validZip = validZips[i];
-            console.log("zipCode: " + zipCode + "\n validZip: " + validZip);
-            if (zipCode == validZip){
-                console.log("zipCode is valid");
-                valid = true;
-            }
-        }
-
-        if (valid){
-            var lat = '';
-            var lng = '';
-            geocoder.geocode( { 'address': zipCode}, function(results, status){
-                if (status == google.maps.GeocoderStatus.OK) {
-                    map.setCenter(results[0].geometry.location);
-                    lat = results[0].geometry.location.lat();
-                    lng = results[0].geometry.location.lng();
-                } else {
-                    alert("Geocode was not successful for the following reason: " + status);
-                }
-            });
-            //var center = new google.maps.LatLng(lat,lng);
-            //map.panTo(center);
-            map.setZoom(11);
-            /*var customizedZipText = document.getElementById('zipCodeEntered');
-            customizedZipText.innerHTML = 'Your Zip Code: ' + zipCode;*/
-        } else {
-            alert("Invalid zipcode: The zipcode you entered is not in Las Vegas. Please try again.");
-        }
-        
-      }
-      function loadBusinessData(){
-        // Send a request for the location data to the server, and provide a callback
-        // function that will be called when the data has been retrieved
-      var data = [{"business_id":"7pw8fNAMV9eLacqsWgn6lg","name":"Las Vegas Vital Records","neighborhood":"Summerlin","address":"2232 Brighton Shore St","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.200629,"longitude":-115.271155,"stars":1.0,"review_count":5,"is_open":1,"attributes":null,"categories":"Courthouses, Public Services & Government","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
-        {"business_id":"rmqbBREx12wU80q_moTfGg","name":"Red Rock Photography Studios","neighborhood":"","address":"","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.18,"longitude":-115.14,"stars":5.0,"review_count":3,"is_open":0,"attributes":null,"categories":"Photographers, Event Planning & Services","hours":{"Monday":"9:0-17:0","Tuesday":"9:0-17:0","Wednesday":"9:0-17:0","Thursday":"9:0-17:0","Friday":"9:0-17:0"}},
-        {"business_id":"MBStgZpjz6BxS_edFOiEDw","name":"Wildlife Habitat","neighborhood":"The Strip","address":"3555 Las Vegas Blvd S","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.1163563463,"longitude":-115.172371485,"stars":3.5,"review_count":47,"is_open":1,"attributes":{"BikeParking":"False","BusinessAcceptsCreditCards":"False","BusinessParking":"{'garage': True, 'street': False, 'validated': False, 'lot': True, 'valet': False}","GoodForKids":"True"},"categories":"Zoos, Active Life, Local Flavor","hours":null},
-        {"business_id":"vYeVKt2S1zMTMSkVQgTsAA","name":"My Affordable Handyman","neighborhood":"Northwest","address":"3450 N Hualapai Way","city":"Las Vegas","state":"NV","postal_code":"89133","latitude":36.2229219,"longitude":-115.314041,"stars":1.0,"review_count":4,"is_open":0,"attributes":{"BusinessAcceptsCreditCards":"False"},"categories":"Handyman, Home Services, Professional Services, Boat Repair","hours":{"Monday":"7:0-18:30","Tuesday":"7:0-18:30","Wednesday":"7:0-18:30","Thursday":"7:0-18:30","Friday":"7:0-18:30","Saturday":"7:0-18:30"}}
-        ];
-        var zipCode = document.getElementById('zipCode').value;
-        $.get('/knowYourPlace/'+zipCode, function(data) {
-            for(var i = 0; i < data.length; i++) {
+              if (valid){
+                  var lat = '';
+                  var lng = '';
+                  geocoder.geocode( { 'address': zipCode}, function(results, status){
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          map.setCenter(results[0].geometry.location);
+                          lat = results[0].geometry.location.lat();
+                          lng = results[0].geometry.location.lng();
+                      } else {
+                          alert("Geocode was not successful for the following reason: " + status);
+                      }
+                  });
+                  //var center = new google.maps.LatLng(lat,lng);
+                  //map.panTo(center);
+                  map.setZoom(11);
+                  /*var customizedZipText = document.getElementById('zipCodeEntered');
+                  customizedZipText.innerHTML = 'Your Zip Code: ' + zipCode;*/
+              } else {
+                  alert("Invalid zipcode: The zipcode you entered is not in Las Vegas. Please try again.");
+              }
+              request.success(function(data) {
+                  $scope.data = data;
+                  for(var i = 0; i < data.length; i++) {
                 var business = data[i];
                 var latitude = business.latitude;
                 var longitude = business.longitude;
@@ -154,8 +159,12 @@
                     this['infowindow'].open(map, this);
                 });
             }
-       });
-      }
+              });
+              request.error(function(data){
+                  console.log('err');
+              });
+          };
+      });
     </script>
 
 
@@ -237,8 +246,7 @@
           
           
           <center>
-          <button type="submit" onclick="updateMap()" ng-click="Find(p)" class="button">Go!</button>
-          <button type="button" onclick="loadBusinessData()" ng-click="knowFriends(p)">Try it!</button><br>
+          <button type="submit" ng-click="knowFriends(p); Find(p)" class="button">Go!</button>
           <input type="button" onclick="location.href='/';" value="Go Back" /> </center>
           <p> The zipcode is: {{ p.zipcode }}</p>
           <p> Average Rent Price: ${{ data.RentPrice }} </p>
